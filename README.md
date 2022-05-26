@@ -1,6 +1,3 @@
 # musiclibrary
 
-
-
-
-Matt Eckman
+Matt Eckman : Repo Owner
