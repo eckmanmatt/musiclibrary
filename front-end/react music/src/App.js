@@ -12,6 +12,10 @@ const App = () => {
   const [year, setYear] = useState()
   const [music, setMusic] = useState([])
   const [toggle, setToggle] = useState(true)
+  const [updatedArtist, setUpdatedArtist] = useState('');
+  const [updatedAlbum, setUpdatedAlbum] = useState('');
+  const [updatedSong, setUpdatedSong] = useState('');
+  const [updatedYear, setUpdatedYear] = useState();
 
   const handleNewArtist = (event) => {
     setArtist(event.target.value)
@@ -24,6 +28,67 @@ const App = () => {
   }
   const handleNewYear = (event) => {
     setYear(event.target.value)
+  }
+  const handleUpdatedArtistChange = (event) => {
+    setUpdatedArtist(event.target.value)
+  }
+  const handleUpdatedAlbumChange = (event) => {
+    setUpdatedAlbum(event.target.value)
+  }
+  const handleUpdatedSongChange = (event) => {
+    setUpdatedSong(event.target.value)
+  }
+  const handleUpdatedYearChange = (event) => {
+    setUpdatedYear(event.target.value)
+  }
+
+  const handleUpdatedArtist = (musicData) => {
+    axios.put(`http://127.0.0.1:3000/music/${musicData._id}`,
+      {
+        artist: updatedArtist
+      }
+    ).then((response) => {
+      axios.get('http://127.0.0.1:3000/music')
+            .then((response) => {
+              setMusic(response.data)
+            })
+    })
+  }
+  const handleUpdatedAlbum = (musicData) => {
+    axios.put(`http://127.0.0.1:3000/music/${musicData._id}`,
+      {
+        album: updatedAlbum
+      }
+    ).then((response) => {
+      axios.get('http://127.0.0.1:3000/music')
+            .then((response) => {
+              setMusic(response.data)
+            })
+    })
+  }
+  const handleUpdatedSong = (musicData) => {
+    axios.put(`http://127.0.0.1:3000/music/${musicData._id}`,
+      {
+        song: updatedSong
+      }
+    ).then((response) => {
+      axios.get('http://127.0.0.1:3000/music')
+            .then((response) => {
+              setMusic(response.data)
+            })
+    })
+  }
+  const handleUpdatedYear = (musicData) => {
+    axios.put(`http://127.0.0.1:3000/music/${musicData._id}`,
+      {
+        year: updatedYear
+      }
+    ).then((response) => {
+      axios.get('http://127.0.0.1:3000/music')
+            .then((response) => {
+              setMusic(response.data)
+            })
+    })
   }
 
   const handleFormSubmit = (event) => {
@@ -55,13 +120,12 @@ const App = () => {
 
   const editMusic = (event) => {
     event.preventDefault()
-    console.log(music);
-    axios.post(`http://127.0.0.1:3000/music`,
+    axios.put(`http://127.0.0.1:3000/music/${music._id}`,
       {
-        artist: artist,
-        album: album,
-        song: song,
-        year: year
+        artist: event.artist,
+        album: event.album,
+        song: event.song,
+        year: event.year
       })
       .then(() => {
           axios.get(`http://127.0.0.1:3000/music`).then((response) => {
@@ -69,7 +133,6 @@ const App = () => {
           })
       })
   }
-
 
 
   const handleEdit = (musicData) => {
@@ -101,23 +164,29 @@ const App = () => {
               return(
                 <div className="listContainer" key={music._id}>
                   <ul>
-                    <li className="listItem">{music.artist}</li>
-                    <li className="listItem">{music.album}</li>
-                    <li className="listItem">{music.song}</li>
-                    <li className="listItem">{music.year}</li>
-                    <button onClick = {(event) => {handleEdit(music)}}>Edit Entry</button>
-                    <button onClick = {(event) => {handleDelete(music)}}>Delete Entry</button>
+                    <li className="listItem">Artist: {music.artist}</li>
+                    <li className="listItem">Album: {music.album}</li>
+                    <li className="listItem">Song: {music.song}</li>
+                    <li className="listItem">Year: {music.year}</li>
                     {toggle ?
                     <></>  :
-                    <form onSubmit={editMusic}>
-                      Artist: <input type="text" onChange={handleNewArtist} value={artist}/><br/>
-                      Album: <input type="text" onChange={handleNewAlbum} value ={album}/><br/>
-                      Song: <input type="text" onChange={handleNewSong} value = {song}/><br/>
-                      Year: <input type="number" onChange={handleNewYear} value={year}/><br/>
+                    <>
+                      Artist: <input type="text" placeholder={music.artist} onKeyUp={handleUpdatedArtistChange}/><br/>
+                      <button onClick={(event) => {handleUpdatedArtist(music)}}>Update Artist</button><br/>
+
+                      Album: <input type="text" placeholder={music.album} onKeyUp={handleUpdatedAlbumChange}/><br/>
+                      <button onClick={(event) => {handleUpdatedAlbum(music)}}>Update Album</button><br/>
+
+                      Song: <input type="text" placeholder={music.song} onKeyUp={handleUpdatedSongChange}/><br/>
+                      <button onClick={(event) => {handleUpdatedSong(music)}}>Update Song</button><br/>
+
+                      Year: <input type="text" placeholder={music.year} onKeyUp={handleUpdatedYearChange}/><br/>
+                      <button onClick={(event) => {handleUpdatedYear(music)}}>Update Year</button><br/>
                       <br/>
-                      <input type='submit' value = 'edit entry'/>
-                    </form>
+                    </>
                     }
+                    <button onClick = {(event) => {handleEdit(music)}}>Edit Entry</button>
+                    <button onClick = {(event) => {handleDelete(music)}}>Delete Entry</button>
 
                   </ul>
                 </div>
