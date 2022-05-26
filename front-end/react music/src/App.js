@@ -41,21 +41,6 @@ const App = () => {
       })
   }
 
-  const editMusic = (musicData) => {
-    axios.put(`http://127.0.0.1:3000/music/${musicData._id}`,
-      {
-        artist: music.artist,
-        album: music.album,
-        song: music.song,
-        year: music.year
-      }).then(() => {
-          axios.get('http://127.0.0.1:3000/music').then((response) => {
-            setMusic(response.data)
-          })
-      })
-  }
-
-
   const handleDelete = (artistData) => {
     axios.delete(`http://127.0.0.1:3000/music/${artistData._id}`)
       .then(() => {
@@ -66,6 +51,26 @@ const App = () => {
           })
       })
   }
+
+
+  const editMusic = (event) => {
+    event.preventDefault()
+    console.log(music);
+    axios.post(`http://127.0.0.1:3000/music`,
+      {
+        artist: artist,
+        album: album,
+        song: song,
+        year: year
+      })
+      .then(() => {
+          axios.get(`http://127.0.0.1:3000/music`).then((response) => {
+            setMusic(response.data)
+          })
+      })
+  }
+
+
 
   const handleEdit = (musicData) => {
     toggle ? setToggle(false) : setToggle(true)
@@ -102,24 +107,24 @@ const App = () => {
                     <li className="listItem">{music.year}</li>
                     <button onClick = {(event) => {handleEdit(music)}}>Edit Entry</button>
                     <button onClick = {(event) => {handleDelete(music)}}>Delete Entry</button>
-
+                    {toggle ?
+                    <></>  :
+                    <form onSubmit={editMusic}>
+                      Artist: <input type="text" onChange={handleNewArtist} value={artist}/><br/>
+                      Album: <input type="text" onChange={handleNewAlbum} value ={album}/><br/>
+                      Song: <input type="text" onChange={handleNewSong} value = {song}/><br/>
+                      Year: <input type="number" onChange={handleNewYear} value={year}/><br/>
+                      <br/>
+                      <input type='submit' value = 'edit entry'/>
+                    </form>
+                    }
 
                   </ul>
                 </div>
               )
         })}
 
-        {toggle ?
-        <></>  :
-        <form onSubmit={editMusic}>
-        Artist: <input type="text" onChange={handleNewArtist}/><br/>
-        Album: <input type="text" onChange={handleNewAlbum}/><br/>
-        Song: <input type="text" onChange={handleNewSong}/><br/>
-        Year: <input type="number" onChange={handleNewYear}/><br/>
-        <br/>
-        <input type="submit" value="Edit Submit"/>
-        </form>
-        }
+
       </div>
     </>
   );
