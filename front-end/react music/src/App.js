@@ -7,17 +7,32 @@ import axios from 'axios'
 const App = () => {
 
   const [artist, setArtist] = useState("")
+  const [album, setAlbum] = useState("")
+  const [song, setSong] = useState("")
+  const [year, setYear] = useState()
   const [music, setMusic] = useState([])
 
   const handleNewArtist = (event) => {
     setArtist(event.target.value)
+  }
+  const handleNewAlbum = (event) => {
+    setAlbum(event.target.value)
+  }
+  const handleNewSong = (event) => {
+    setSong(event.target.value)
+  }
+  const handleNewYear = (event) => {
+    setYear(event.target.value)
   }
 
   const handleFormSubmit = (event) => {
     event.preventDefault()
     axios.post('http://127.0.0.1:3000/music',
       {
-        artist: artist
+        artist: artist,
+        album: album,
+        song: song,
+        year: year
       }).then(() => {
           axios.get('http://127.0.0.1:3000/music').then((response) => {
             setMusic(response.data)
@@ -47,7 +62,8 @@ const App = () => {
     <div>
       <h1>Music Library</h1>
       <form onSubmit = {handleFormSubmit}>
-          Artist: <input type="text" onChange={handleNewArtist}/>
+          Artist: <input type="text" onChange={handleNewArtist}/><br/>
+          Album: <input type="text" onChange={handleNewAlbum}/>
           <br/>
           <br/>
           <input type="submit" value="Add Artist"/>
@@ -57,7 +73,9 @@ const App = () => {
       <ul>
         {music.map((music) => {
               return(
-                <li key={music._id}>{music.artist}
+                <li key={music._id}>
+                {music.artist}<br/>
+                {music.album}<br/>
                 <button onClick={(event) => {
                   handleDelete(music)}}>Delete</button>
                 </li>
