@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+body{
+  background-color: lightgrey;
+}
+.addMusic{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: grey;
+}
+.title{
+  color: blue;
+}
+.list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.listContainer{
+  display: flex;
+  background-color: ghostwhite;
+  width: auto;
+  font-size: 30px;
+  margin-top: 50px;
+  list-style-type: none;
+  border-radius: 20px;
+  padding: 20px;
+}
+.listItem{
+  display: flex;
+  flex-direction: column;
+}
