@@ -81,6 +81,8 @@ const App = () => {
                     <li className="listItem">{music.album}</li>
                     <li className="listItem">{music.song}</li>
                     <li className="listItem">{music.year}</li>
+                    <button onClick = {(event) => {handleDelete(music)}}>Delete Entry</button>
+
                   </ul>
                 </div>
               )
