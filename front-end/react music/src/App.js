@@ -7,14 +7,18 @@ import axios from 'axios'
 const App = () => {
 
   const [artist, setArtist] = useState("")
+<<<<<<< HEAD
   const [album, setAlbum] = useState("")
   const [song, setSong] = useState("")
   const [year, setYear] = useState()
+=======
+>>>>>>> ea2f59c441eb92ed33fb58e351751869bba2d975
   const [music, setMusic] = useState([])
 
   const handleNewArtist = (event) => {
     setArtist(event.target.value)
   }
+<<<<<<< HEAD
   const handleNewAlbum = (event) => {
     setAlbum(event.target.value)
   }
@@ -24,15 +28,21 @@ const App = () => {
   const handleNewYear = (event) => {
     setYear(event.target.value)
   }
+=======
+>>>>>>> ea2f59c441eb92ed33fb58e351751869bba2d975
 
   const handleFormSubmit = (event) => {
     event.preventDefault()
     axios.post('http://127.0.0.1:3000/music',
       {
+<<<<<<< HEAD
         artist: artist,
         album: album,
         song: song,
         year: year
+=======
+        artist: artist
+>>>>>>> ea2f59c441eb92ed33fb58e351751869bba2d975
       }).then(() => {
           axios.get('http://127.0.0.1:3000/music').then((response) => {
             setMusic(response.data)
@@ -40,6 +50,7 @@ const App = () => {
       })
   }
 
+<<<<<<< HEAD
   const handleDelete = (artistData) => {
     axios.delete(`http://127.0.0.1:3000/music/${artistData._id}`)
       .then(() => {
@@ -64,11 +75,21 @@ const App = () => {
       <form onSubmit = {handleFormSubmit}>
           Artist: <input type="text" onChange={handleNewArtist}/><br/>
           Album: <input type="text" onChange={handleNewAlbum}/>
+=======
+
+  return (
+    <>
+    <div class="addMusic">
+      <h1 class="title">Music Library</h1>
+      <form onSubmit = {handleFormSubmit}>
+          Artist: <input type="text" onChange={handleNewArtist}/>
+>>>>>>> ea2f59c441eb92ed33fb58e351751869bba2d975
           <br/>
           <br/>
           <input type="submit" value="Add Artist"/>
       </form>
       </div>
+<<<<<<< HEAD
       <div>
       <ul>
         {music.map((music) => {
@@ -82,6 +103,18 @@ const App = () => {
               )
         })}
       </ul>
+=======
+      <div class="list">
+
+        {music.map((music) => {
+              return(
+                <div class="listContainer">
+                  <li class="listItem">{music.artist}</li>
+                </div>
+              )
+        })}
+
+>>>>>>> ea2f59c441eb92ed33fb58e351751869bba2d975
       </div>
     </>
   );
