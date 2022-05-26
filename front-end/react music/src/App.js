@@ -28,8 +28,8 @@ const App = () => {
 
   return (
     <>
-    <div>
-      <h1>Music Library</h1>
+    <div class="addMusic">
+      <h1 class="title">Music Library</h1>
       <form onSubmit = {handleFormSubmit}>
           Artist: <input type="text" onChange={handleNewArtist}/>
           <br/>
@@ -37,14 +37,16 @@ const App = () => {
           <input type="submit" value="Add Artist"/>
       </form>
       </div>
-      <div>
-      <ul>
+      <div class="list">
+
         {music.map((music) => {
               return(
-                <li>{music.artist}</li>
+                <div class="listContainer">
+                  <li class="listItem">{music.artist}</li>
+                </div>
               )
         })}
-      </ul>
+
       </div>
     </>
   );
