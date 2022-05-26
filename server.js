@@ -51,7 +51,7 @@ app.listen(3000, () => {
 
 //Local host 3000 doesnt work for me
 //replaced with 127.0.0.1
-mongoose.connect('mongodb://127.0.0.1:27017/merncrud')
+mongoose.connect('mongodb://127.0.0.1:27017/musiclibrary')
 mongoose.connection.on('open', () => {
   console.log('connection on');
 })
