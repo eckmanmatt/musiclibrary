@@ -76,10 +76,14 @@ const App = () => {
         {music.map((music) => {
               return(
                 <div className="listContainer" key={music._id}>
-                  <li className="listItem">{music.artist}</li>
-                  <li className="listItem">{music.album}</li>
-                  <li className="listItem">{music.song}</li>
-                  <li className="listItem">{music.year}</li>
+                  <ul>
+                    <li className="listItem">{music.artist}</li>
+                    <li className="listItem">{music.album}</li>
+                    <li className="listItem">{music.song}</li>
+                    <li className="listItem">{music.year}</li>
+                    <button onClick = {(event) => {handleDelete(music)}}>Delete Entry</button>
+
+                  </ul>
                 </div>
               )
         })}
